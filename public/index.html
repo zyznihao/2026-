@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta property="og:image" content="https://yourname.github.io/2026-ma-nian/QQ_1770044304663.png">
+<meta property="og:url" content="https://yourname.github.io/2026-ma-nian/">
+<meta property="og:title" content="2026马年新春祝福">
+<meta property="og:description" content="点击查看我的专属新年贺卡 🎇">
+  <title>2026春节倒计时</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+</head>
+<body>
+  <!-- 主内容-->
+  <audio id="sound" preload="auto"></audio>
+  <div class="container">
+    <!--    倒计时-->
+    <h1>2026春节countdown</h1>
+    <div id="countdown">加载中……</div>
+
+    <!--    文字弹跳-->
+    <button id="Btn">点击有好运！</button>
+    <div id="blessing" class="blessing"></div>
+
+    <!-- 音频 -->
+    <div class="music-control">
+      <audio  id="music" loop></audio>
+      <label for="music-select">选择背景音乐：</label>
+      <select id="music-select">
+        <option value="">-- 请选择 --</option>
+        <option value="song1.m4a">一路生花</option>
+        <option value="song2.m4a">迎春</option>
+      </select>
+    </div>
+  </div>
+<div id="text-fireworks"></div>
+  <!-- 上部雪花 -->
+ <div id="snow"></div>
+  <!--  烟火点按-->
+ <canvas id="fireworks-canvas" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>

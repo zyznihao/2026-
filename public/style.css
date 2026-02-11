@@ -1,0 +1,279 @@
+html {
+  overflow: hidden;
+  height: 100%;
+}
+body {
+   background-image:url('image2.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+
+  font-family: "华文行楷", STXingkai, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  overflow: hidden;/* 防止雪花溢出横向滚动 */
+  height: 100%;
+  margin: 0
+  animation: breatheBg 10s ease-in-out infinite alternate;
+}
+/* 确保主内容位置层次 */
+.container {
+  z-index: 10;
+}
+h1 {
+  font-size: clamp(2rem, 8vw, 4rem); /* 响应式标题 */
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+  margin-bottom: 20px;
+}
+
+/*倒计时和祝福语*/
+#countdown{
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  margin: 15px 0;
+   color: 	#FFD700;
+  text-shadow: 0 0 10px rgba(124, 252, 0, 0.7); /* 添加发光效果，*/
+}
+#blessing {
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  margin: 15px 0;
+   color: 	#DC143C;
+  text-shadow: 0 0 10px rgba(124, 252, 0, 0.7); /* 添加发光效果，*/
+}
+button#Btn {
+  /* 如果没有定义颜色，添加一个 */
+  color: #000; /* 或其他深色 */
+  background-color: #FFD700; /* 使用金色背景 */
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-family: inherit; /* 继承body的字体 */
+  cursor: pointer;
+  border-radius: 5px;
+  text-shadow: none; /* 按钮上去文字阴影 */
+}
+/*1.祝福语基础样式*/
+.blessing {
+position: relative;
+    color: #DC143C;
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.7); /* 发光效果 */
+  opacity: 0; /* 初始状态：完全透明（看不见） */
+  transform: scale(0.8) translateY(20px); /* 初始状态：缩小到80%，并且在下方20px处 */
+  transition: none;
+}
+/* 激活动画 */
+
+.blessing.animate {
+    color: red;
+  animation: floatIn 1s ease-out forwards;
+}
+/*动画floatIn定义*/
+@keyframes floatIn {
+  to { /* 'to' 等同于 '100%'，意思是动画结束时的状态 */
+    opacity: 1; /* 变成完全不透明（完全可见） */
+    transform: scale(1) translateY(0); /* 恢复到正常大小，并移动到原始位置 */
+  }
+}
+
+/*2.背景音乐控制样式*/
+.music-control {
+  margin-top: 20px;
+  font-size: 1rem;
+}
+.music-control select {
+  background: #333;
+  color: white;
+  border: 1px solid #ff6600;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+/*3.单雪花样式定义 */
+.snowflake {
+  position: absolute; /* 脱离文档流，可以自由定位 */
+  top: -50px; /* 初始位置在屏幕上方50px（准备开始下落）*/
+  color: white;
+  font-size: 1.2rem;
+  opacity: 0.85;
+  pointer-events: none; /* 雪花不会挡住你点击页面其他地方 */
+  user-select: none; /* 不能选中雪花 */
+  z-index: 1; /* 层级很低，确保在内容后面 */
+}
+/*动画雪花飘落*/
+@keyframes snowfall {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(50vh) translateX(calc(var(--drift, 0) * 1px));
+  }
+  100% {
+    transform: translateY(100vh) translateX(calc(var(--drift, 0) * 2px));
+    opacity: 0;
+  }
+}
+
+/* 流星划过动画 */
+.starfall {
+  position: absolute;
+  top: -20px; /* 从屏幕上方外开始 */
+  color: white;
+  font-size: 1.2rem;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  /* 确保初始无偏移 */
+  transform: translateX(0) translateY(0);
+}
+@keyframes star-animation {
+  0% {
+    opacity: 0;
+    transform: translateX(0) translateY(0);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    /* 向左下移动：X 负值（左），Y 正值（下） */
+    opacity: 0;
+    transform:
+      translateX(calc(-100vw - 100px))
+      translateY(calc(100vh + 100px));
+  }
+}
+
+
+/* 点按光晕 */
+.ripple {
+  position: fixed;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 100;
+  animation: rippleEffect 0.6s linear;
+}
+@keyframes rippleEffect {
+  to {
+    width: 4px;
+    height: 4px;
+    opacity: 0;
+  }
+}
+
+/*页面光晕*/
+@keyframes breatheBg {
+  from {
+    filter: brightness(1) saturate(1);
+  }
+  to {
+    filter: brightness(1.05) saturate(1.1);
+  }
+}
+
+
+/* 竖排文字烟花弹幕容器 */
+#text-fireworks {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* 找到这段CSS并替换 */
+/* 单个竖排文字烟花 */
+.text-firework {
+  position: absolute;
+  bottom: -100px; /* 起始在视窗外 */
+  color: 	#DC143C;
+  font-size: clamp(1rem, 3vw, 1.8rem);
+  font-family: "华文行楷", STXingkai, serif;
+  writing-mode: vertical-rl; /* 竖排文字 */
+  text-orientation: mixed;
+  opacity: 0;
+  /* 移除了 white-space: nowrap; 如果字符间需要更紧密可以保留，但通常竖排不需要 */
+  text-shadow: 0 0 8px currentColor; /* 发光效果，很好 */
+  /* 初始滤镜改为无模糊 */
+  filter: blur(0);
+  animation: riseAndFade 3s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+}
+
+/* 修改动画关键帧 */
+@keyframes riseAndFade {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+    /* 去掉起始的 blur */
+    filter: blur(0);
+  }
+  10% {
+    opacity: 1;
+    filter: blur(0); /* 确保清晰进入 */
+  }
+  /* 可以在中间阶段加入轻微模糊模拟拖尾，可选 */
+  /*
+  40% {
+    filter: blur(0.5px);
+  }
+  */
+  80% {
+    opacity: 0.7;
+    /* 可以考虑在此阶段或之后加入模糊以模拟消失 */
+    /* filter: blur(1px); */
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+    /* 结束时可以有模糊，因为本身透明度也为0了 */
+    /* filter: blur(2px); */
+    /* 为了清晰度，结束时也保持无模糊 */
+     filter: blur(0);
+  }
+}
+
+.animate11 {
+position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6em;
+  color: red;
+  z-index: 100;
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.7); /* 发光效果 */
+}
+
+.animate12 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* 合并所有 transform 效果到一行 */
+  transform: translate(-50%, -50%) scale(0.3) translateY(30px);
+  font-size: 6em;
+  color: red;
+  z-index: 100;
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+  opacity: 0; /* 初始透明 */
+}
+
+.animate12.animate13 {
+  animation: floatIn 3s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes floatIn {
+  to {
+    opacity: 1;
+    /* 保持居中，恢复大小，向上移动（负值） */
+    transform: translate(-50%, -50%) scale(1) translateY(-150px);
+  }
+}
