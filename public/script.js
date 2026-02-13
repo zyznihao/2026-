@@ -14,7 +14,7 @@ function star(count = 200) {
   container.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;';
   document.body.appendChild(container);
 
-  const stars = ['🌠', '✨', '•', '*',]; //
+  const stars = ['💥', '✨', '•', '*',]; //
 
   for (let i = 0; i < count; i++) {
     const meteor = document.createElement('div');
