@@ -43,13 +43,30 @@ function star(count = 200) {
 //  倒计时
 function countdown1() {
   const now = new Date();
-  const next = new Date(2026, 1, 10, 14,21, 20);
+  const next = new Date(2026, 1, 17,0,0,  0);
   const diff = next - now;
   if (diff <= 10000) {
-  if (mainCountdownTimer !== null) {
-        clearInterval(mainCountdownTimer);
-        mainCountdownTimer = null; // 避免重复清除
-    }
+  speed1();
+}
+
+  const totalSec = Math.floor(diff / 1000);
+  const days = Math.floor(totalSec / 86400);
+  const hours = Math.floor((totalSec % 86400) / 3600);
+  const mins = Math.floor((totalSec % 3600) / 60);
+  const secs = totalSec % 60;
+
+  document.getElementById('countdown').innerHTML = `
+    <p>距离2026丙午马年春节还有：</p>
+    <p>${days}日 ${hours}时 ${mins}分 ${secs}秒</p>
+  `;
+}
+countdown1();
+mainCountdownTimer=setInterval(countdown1, 1000);
+function speed1(){
+    if (mainCountdownTimer !== null) {
+            clearInterval(mainCountdownTimer);
+            mainCountdownTimer = null; // 避免重复清除
+        }
     // 清空页面
     // 1. 清空页面
     document.body.innerHTML = '';
@@ -154,20 +171,31 @@ function countdown1() {
     }, 1000);
 }
 
-  const totalSec = Math.floor(diff / 1000);
-  const days = Math.floor(totalSec / 86400);
-  const hours = Math.floor((totalSec % 86400) / 3600);
-  const mins = Math.floor((totalSec % 3600) / 60);
-  const secs = totalSec % 60;
+//控制快进
+// 获取按钮
+const igniteBtn = document.getElementById('speed');
+// 点击事件：点燃引信，然后触发倒计时
+igniteBtn.addEventListener('click', () => {
+  // 添加“点燃”状态
+  igniteBtn.classList.add('igniting');
+  const sound = new Audio('ignite-sound.mp3');
+  sound.loop = true;
+  sound.play();
+  // 延迟执行，让动画播放完再跳转
+  setTimeout(() => {
+    // 停止主倒计时轮询
+    if (mainCountdownTimer !== null) {
+      clearInterval(mainCountdownTimer);
+      mainCountdownTimer = null;
+    }
 
-  document.getElementById('countdown').innerHTML = `
-    <p>距离2026丙午马年春节还有：</p>
-    <p>${days}日 ${hours}时 ${mins}分 ${secs}秒</p>
-  `;
-}
-countdown1();
-mainCountdownTimer=setInterval(countdown1, 1000);
+    // 执行倒计时结束流程
+    speed1();
 
+    // 移除按钮
+    igniteBtn.remove();
+  }, 2000); // 与动画时间同步
+});
 //点击好运
 document.getElementById('Btn').addEventListener('click', function () {
   const blessingEl = document.getElementById('blessing');

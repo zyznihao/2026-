@@ -3,7 +3,7 @@ html {
   height: 100%;
 }
 body {
-   background-image:url('image2.png');
+   background-image:url('image2.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -20,8 +20,98 @@ body {
   margin: 0
   animation: breatheBg 10s ease-in-out infinite alternate;
 }
+/* 烟花引信按钮 */
+.ignite-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #e63946; /* 深红 */
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ignite-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(230, 57, 70, 0.6);
+}
+
+.ignite-btn:active {
+  transform: scale(0.98);
+}
+
+.fuse {
+  width: 10px;
+  height: 10px;
+  background: #f5c500; /* 黄色引信 */
+  border-radius: 50%;
+  position: relative;
+  animation: flicker 1.5s infinite alternate;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* 点燃时的火焰动画 */
+.ignite-btn.igniting .fuse {
+  animation: burn 0.8s forwards;
+  background: #ff8c00;
+}
+
+@keyframes burn {
+  0% {
+    width: 10px;
+    height: 10px;
+    transform: scale(1);
+  }
+  50% {
+    width: 16px;
+    height: 16px;
+    transform: scale(1.2) rotate(15deg);
+    background: #ff6b00;
+  }
+  100% {
+    width: 24px;
+    height: 24px;
+    transform: scale(1.5) rotate(30deg);
+    background: #ff3a00;
+    box-shadow: 0 0 12px rgba(255, 58, 0, 0.7);
+  }
+}
+.ignite-btn.igniting::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: #ffcc00;
+  border-radius: 50%;
+  animation: spark 0.5s ease-out forwards;
+}
+@keyframes spark {
+  0% { transform: translateX(-50%) scale(1); opacity: 1; }
+  100% { transform: translateX(-50%) scale(2) translateY(-10px); opacity: 0; }
+}
 /* 确保主内容位置层次 */
 .container {
+
+ align-items: center;     /* 水平居中 */
+  justify-content: center; /* 垂直居中 */
   z-index: 10;
 }
 h1 {
@@ -37,13 +127,9 @@ h1 {
    color: 	#FFD700;
   text-shadow: 0 0 10px rgba(124, 252, 0, 0.7); /* 添加发光效果，*/
 }
-#blessing {
-  font-size: clamp(1rem, 4vw, 1.5rem);
-  margin: 15px 0;
-   color: 	#DC143C;
-  text-shadow: 0 0 10px rgba(124, 252, 0, 0.7); /* 添加发光效果，*/
-}
+
 button#Btn {
+   position: relative;
   /* 如果没有定义颜色，添加一个 */
   color: #000; /* 或其他深色 */
   background-color: #FFD700; /* 使用金色背景 */
@@ -57,26 +143,28 @@ button#Btn {
 }
 /*1.祝福语基础样式*/
 .blessing {
-position: relative;
-    color: #DC143C;
+  bottom: 10px;
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  margin-top: 10px; /* 在按钮下方留空 */
+  color: red;
+   width: 100%; /* 占满父容器宽度 */
   text-shadow: 0 0 10px rgba(255, 204, 0, 0.7); /* 发光效果 */
-  opacity: 0; /* 初始状态：完全透明（看不见） */
-  transform: scale(0.8) translateY(20px); /* 初始状态：缩小到80%，并且在下方20px处 */
-  transition: none;
+  opacity: 0.5; /* 初始状态：完全透明（看不见） */
+
 }
-/* 激活动画 */
 
 .blessing.animate {
-    color: red;
+   color: red;
   animation: floatIn 1s ease-out forwards;
+  transform:scale(0.7)  translateY(20px)
 }
-/*动画floatIn定义*/
 @keyframes floatIn {
-  to { /* 'to' 等同于 '100%'，意思是动画结束时的状态 */
-    opacity: 1; /* 变成完全不透明（完全可见） */
-    transform: scale(1) translateY(0); /* 恢复到正常大小，并移动到原始位置 */
+  to {
+    opacity: 1;
+    transform:scale(1)  translateY(0);
   }
 }
+
 
 /*2.背景音乐控制样式*/
 .music-control {
@@ -267,10 +355,10 @@ position: absolute;
 }
 
 .animate12.animate13 {
-  animation: floatIn 3s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+  animation: floatIn1 3s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
 }
 
-@keyframes floatIn {
+@keyframes floatIn1 {
   to {
     opacity: 1;
     /* 保持居中，恢复大小，向上移动（负值） */
