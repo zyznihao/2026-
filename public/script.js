@@ -177,6 +177,8 @@ const igniteBtn = document.getElementById('speed');
 // 点击事件：点燃引信，然后触发倒计时
 igniteBtn.addEventListener('click', () => {
   // 添加“点燃”状态
+  const music = document.getElementById('music');
+  music.pause();
   igniteBtn.classList.add('igniting');
   const sound = new Audio('ignite-sound.mp3');
   sound.loop = true;
