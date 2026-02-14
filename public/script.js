@@ -102,6 +102,7 @@ function speed1(){
         bgContainer.style.filter = 'blur(0px)';
     }, 50);
 
+
     // 创建倒计时显示元素
     const a1 = document.createElement('div');
     a1.classList.add('animate11');
