@@ -7,7 +7,7 @@ const blessings = [
   "平安喜乐，所求皆如愿！"
 ];
 let mainCountdownTimer = null;
-
+function jik(){;}
 //流星
 function star(count = 200) {
   const container = document.createElement('div');
