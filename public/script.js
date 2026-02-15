@@ -85,7 +85,7 @@ function speed1(){
         left: '-20px',
         width: 'calc(100% + 40px)',
         height: 'calc(100% + 40px)',
-        backgroundImage: "url('image1.png')",
+        backgroundImage: "url('public/image1.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -132,7 +132,7 @@ function speed1(){
                 left: '-20px',
                 width: 'calc(100% + 40px)',
                 height: 'calc(100% + 40px)',
-                backgroundImage: "url('image3.jpg')",
+                backgroundImage: "url('public/image3.jpg')",
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
@@ -182,7 +182,7 @@ igniteBtn.addEventListener('click', () => {
   const music = document.getElementById('music');
   music.pause();
   igniteBtn.classList.add('igniting');
-  const sound = new Audio('ignite-sound.mp3');
+  const sound = new Audio('public/ignite-sound.mp3');
   sound.loop = true;
   sound.play();
   // 延迟执行，让动画播放完再跳转
