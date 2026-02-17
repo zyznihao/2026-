@@ -42,7 +42,7 @@ function star(count = 200) {
 //  倒计时
 function countdown1() {
   const now = new Date();
-  const next = new Date(2026, 1, 17,0,0,  0);
+  const next = new Date(2027, 1, 6,0,0,  0);
   const diff = next - now;
   if (diff <= 10000) {
   speed1();
@@ -55,7 +55,7 @@ function countdown1() {
   const secs = totalSec % 60;
 
   document.getElementById('countdown').innerHTML = `
-    <p>距离2026丙午马年春节还有：</p>
+    <p>距离2027丁未羊年春节还有：</p>
     <p>${days}日 ${hours}时 ${mins}分 ${secs}秒</p>
   `;
 }
@@ -520,7 +520,7 @@ function GetRequest() {
     c2.width = c3.width = window.innerWidth;
     c2.height = c3.height = window.innerHeight;
     ctx1.fillStyle = '#000';
-    const text = '2026新春快乐！'
+    const text = '2027新春快乐！'
     let textWidth = 99999999;
 
     while (textWidth > window.innerWidth) {
